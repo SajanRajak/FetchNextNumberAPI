@@ -1,0 +1,36 @@
+FetchNextNumberAPI is the assignment done as instructed in the question.
+
+Download this folder and open as maven project in any ide that supports SpringBoot.
+I have used Spring Tool Suite for building this project.
+
+Requirements:
+	1. MySql 8.0
+	2. Java jdk 8
+	3. Spring Tool Suite 4 (Or any alternative)
+	4. PostMan (or Alternative)
+
+Run this project as spring boot application
+
+Server port is set to 8080, if your 8080 port is busy, try changing the port number
+in application.properties file in "FetchNextNumberAPI\src\main\resources\application.properties"
+Or, you can kill the process id which is using the particular port using command prompt.
+
+Junit testing can be found at:
+"FetchNextNumberAPI\src\test\java\com\assignment\fetchNumber\FetchNextNumberAPI\FetchNextNumberApiApplicationTests.java"
+Right click this file and Run as JUnit test to rull all the Test funtions
+
+After running the project as Spring Boot Application. Open PostMan or any other alternative,
+which can send requests to the running server in localhost:8080, or other port number if changed.
+
+PostMan gives friendly UI, and following commands can be implmented for this RESTAPI:
+	1. GET : localhost:8080/categories  		: to get all the categories present in the database
+	2. GET : localhost:8080/category/{categoryId}   : to get details of a particular category id
+	3. GET : localhost:8080/FetchNextNumber         : mentioned main link to implement, takes a random category id from table 
+							  and udpdates it to next available id whose didgit sum = 1 and 
+							  returns OldValue and NewValue as pair
+	4. GET : localhost:8080/FetchNextNumber/{categoryId} : Does the same work as FetchNextNumber, but for the particular category Id that you pass
+	5. POST : localhost:8080/category               : adds a new category object, which can be passed in JSON format
+	6. DELETE : localhost:8080/categories           : deletes all the categories in the category table
+	7. DELETE : localhost:8080/category/{categoryId}: deletes a category of provied particular id
+
+All the values are returned as JSON, except DELETE methods send success messages as String.
