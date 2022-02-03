@@ -1,0 +1,22 @@
+1. Database : MySQL is used, here a new Assesment database is created where a simple yet
+	      very handy category table is used that can not only give the feel of any table
+	      being accesed but also does the required id updation with new value effectively.
+
+2. DigitSum : As there were multiple possible ways to implement the required algorithm, 
+	      recursive, iterrative, but I made the most optimised algorithm to find the next 
+ 	      valid number in constant time complexity O(1), rest extra time is required to 
+	      check if the id is already present or not i.e nearly logatrithmic, this check 
+	      is necessary as it ensures data consistency, and we are not over writting data 
+              that must not be overwritten.
+
+3. Extra Features : All CRUD operations, create category, read category, update category and 
+		    delete category are implemented and can be called using proper request 
+ 		    mappings, this not only helps in checking the consistency but also eases 
+		    up the work that needed to be implmented manully in database.
+
+4. Architecture of Project :
+dispatcher servlet interacts to RESTAPI conrtroller "CategoryController"
+RESTAPI conrtroller "CategoryController" interacts to Service Layer "CategoryService" which autowires its implementation.
+Service Layer "CategoryService" interacts to DAO layer "CategoryDao" that extends Jparepository
+JpaRepositoy interacts to the DataBase table Category, which is implements as Entity in "Category.java"
+Category table contains two values, id (primary key) and name, all this is done automatically by JpaRepository
