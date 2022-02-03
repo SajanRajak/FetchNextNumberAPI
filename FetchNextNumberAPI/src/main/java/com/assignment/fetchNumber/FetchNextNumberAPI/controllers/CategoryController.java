@@ -2,6 +2,7 @@ package com.assignment.fetchNumber.FetchNextNumberAPI.controllers;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -86,6 +87,12 @@ public class CategoryController {
 		long oldValue = 0;
 		long newValue = 1;
 		
+		try{
+			TimeUnit.SECONDS.sleep(5);
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
+		
 		//As not mentioned which category id to choose from table of multiple categories
 		//I resolved it using random selection
 		Random random = new Random();  
@@ -100,6 +107,10 @@ public class CategoryController {
 		}
 		
 		int listSize = categories.size();
+		if(listSize == 0) {
+			ChangePair pair = new ChangePair(oldValue,newValue);
+			return pair;
+		}
 		//Selecting a random index
 		int index = random.nextInt(listSize);
 		
@@ -135,6 +146,12 @@ public class CategoryController {
 		long newValue = 1;
 		Category category;
 		
+		try{
+			TimeUnit.SECONDS.sleep(5);
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
+		
 		try {
 			category = this.categoryService.getCategory(Long.parseLong(id));
 		}catch(Exception e){
@@ -146,16 +163,8 @@ public class CategoryController {
 		//if data of the particular id not present default oldValue = 0, but other data may be present so checking the next
 		//available required number
 		if(category == null) {
+			//if no such object present just display oldValue and neValue, dont alter the DB
 			newValue = categoryService.fetchNextNumber(oldValue);
-			//creating a new category object, as 0 id object is not present in database (as mentioned)
-			category = new Category();
-			category.setId(newValue);
-			category.setName("Created By Default Fetch Number");
-			
-			//adding the the database
-			this.categoryService.insertUpdateCategory(category);
-			
-			//Preparing the change pair object to meet the return requirements
 			ChangePair pair = new ChangePair(oldValue,newValue);
 			return pair;
 		}
